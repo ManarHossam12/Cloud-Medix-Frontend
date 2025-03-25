@@ -1,18 +1,14 @@
 import React from "react";
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import "../style.css";
 
-const ReservationCard = ({ reservation, onCancel }) => {
+const ReservationCard = ({ title }) => {
   return (
-    <Card sx={{ margin: "10px", backgroundColor: "#e3f2fd" }}>
-      <CardContent>
-        <Typography variant="h6">Patient: {reservation.patientName}</Typography>
-        <Typography>Time: {reservation.time}</Typography>
-        <Typography>Doctor: {reservation.doctorName}</Typography>
-        <Button variant="contained" color="error" onClick={() => onCancel(reservation.id)}>
-          Cancel
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="reservation-card">
+      <div className="card-content">
+        <img src="../assets/medical-icon.png" alt="Icon" className="card-icon" />
+        <span>{title}</span>
+      </div>
+    </div>
   );
 };
 

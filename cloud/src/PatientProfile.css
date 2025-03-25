@@ -1,0 +1,196 @@
+/* General Layout */
+body {
+    background-color: #e8e2f7;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    height: auto;
+    background: #f3ecff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 40 px;
+}
+
+/* Sidebar (Imported from Home Page, should not be duplicated) */
+.sidebarr {
+    width: 80px;
+    background-color: white !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    border-right: 1px solid black;
+}
+
+.sidebar-icon {
+    font-size: 24px;
+    margin: 20px 0;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.3s;
+}
+
+.sidebar-icon:hover {
+    color: #6a1b9a;
+}
+
+/* Profile Main Container */
+.profile-container {
+    flex-grow: 1;
+    padding: 60px;
+    background-color: #e8e2f7;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Left Section (Profile Details) */
+.profile-details-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Section */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #6a1b9a;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.profile-title {
+    background: #f3ecff;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.edit-icon {
+    font-size: 22px;
+    cursor: pointer;
+    color: #6a1b9a;
+}
+
+/* Profile Picture */
+.profile-pic-section {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    margin: 30px 0;
+    flex-direction: column;
+}
+
+.profile-img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+/* User Details */
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.detail-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.detail-value {
+    padding: 12px;
+    border: 2px solid #6a1b9a;
+    border-radius: 20px;
+    background: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Additional Info */
+.additional-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.info-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-value, .address-text {
+    padding: 12px;
+    border: 2px solid #6a1b9a;
+    border-radius: 20px;
+    background: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Right Section (Emergency Contacts) */
+.emergency-contacts {
+    flex: 1;
+    background: none;
+    padding: 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contacts-header {
+    align-self: flex-start;
+}
+
+.contacts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.contact-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.contact-input {
+    padding: 12px;
+    border: 2px solid #6a1b9a;
+    border-radius: 20px;
+    background: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    width: 100%;
+}

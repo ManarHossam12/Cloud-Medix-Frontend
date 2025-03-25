@@ -1,28 +1,39 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import Header from "./components/Header";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 import Reservations from "./pages/Reservations";
-import Visits from "./pages/Visits";
-import AvailableSlots from "./pages/AvailableSlots";
-import { Box } from "@mui/material";
+import PatientMedicalInfo from "./pages/PatientMedicalInfo";
 
-const App = () => {
+import Layout from "./components/Layout";
+import PatientHome from "./pages/Home";
+import ReceptionistHome from "./pages/ReceptionistHome";
+import Address from "./pages/Address";
+
+
+
+
+
+
+
+function App() {
   return (
     <Router>
-      <Header />
-      <Box sx={{ display: "flex" }}>
-        <Sidebar />
-        <Box sx={{ flexGrow: 1, padding: 3, marginLeft: "240px", marginTop: "64px" }}>
-          <Routes>
-            <Route path="/reservations" element={<Reservations />} />
-            <Route path="/visits" element={<Visits />} />
-            <Route path="/available-slots" element={<AvailableSlots />} />
-          </Routes>
-        </Box>
-      </Box>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/Home" element={<PatientHome />} />
+        <Route path="/receptionist" element={<ReceptionistHome />} />
+        <Route path="/address" element={<Address />} />
+
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/reservations" element={<Reservations />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Layout><Profile /></Layout>} />
+        <Route path="/medical-record" element={<PatientMedicalInfo />} />
+      </Routes>
     </Router>
   );
-};
+}
 
 export default App;

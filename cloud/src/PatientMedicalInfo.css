@@ -1,0 +1,117 @@
+/* General Page Layout */
+body {
+    background-color: #e8e2f7;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main Container */
+.medical-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    background: #e6d4ff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 80px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    border-right: 2px solid #d1c4e9;
+}
+
+.sidebar-icon {
+    font-size: 24px;
+    margin: 20px 0;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.3s;
+}
+
+.sidebar-icon:hover {
+    color: #6a1b9a;
+}
+
+.active-icon {
+    color: #6a1b9a;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    background: #5e17eb;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 250px;
+}
+
+.menu-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    background: white;
+    color: black;
+    transition: all 0.3s ease;
+}
+
+.menu-button.active {
+    background: linear-gradient(90deg, #67dfff, #b6f7ff);
+    color: black;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Content Section */
+.content-section {
+    flex-grow: 1;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    position: relative;
+    margin-left: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.content-section h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.content-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+/* Profile Picture */
+.profile-img {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid white;
+}

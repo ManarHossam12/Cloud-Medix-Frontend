@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8ff;
+  }
+  
+  .home-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .layout {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 80px; /* Ensure width is set */
+    background-color: #d7c7f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    min-height: 100vh; /* Ensure full height */
+  }
+  
+  .page-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .sidebar-icon {
+    font-size: 24px;
+    margin: 20px 0;
+    cursor: pointer;
+  }
+  
+  .content {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .left-section {
+    flex: 2;
+  }
+  
+  .right-section {
+    flex: 1;
+    background-color: #7d37d0;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .patient-profile {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+  
+  .vitals {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .reservation-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .card-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .calendar {
+    text-align: center;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  
+  .calendar-day {
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+  }
+  
+  .active {
+    background: yellow;
+  }
+  
+  .reserve-btn {
+    background: #00bfa6;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
