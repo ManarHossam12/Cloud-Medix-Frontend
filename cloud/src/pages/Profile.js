@@ -1,99 +1,185 @@
-import React from "react";
-import "../PatientProfile.css";
+import React, { useState, useEffect } from "react";
+import api from "../axios";
+import "../PatientProfile.css"; // Use your own CSS
 import { FaPen } from "react-icons/fa";
-import im1 from "../assets/im1.png";
+import im1 from "../assets/im1.png"; // Or your real user image
 
-const PatientProfile = () => {
-  return (
-    <div className="profile-container">
-      {/* Profile Section */}
-      <div className="profile-details-container">
-        <div className="profile-header">
-          <h1 className="profile-title">Profile</h1>
-          <FaPen className="edit-icon" />
+const Profile = () => {
+  const [user, setUser] = useState(null);
+  const [contact, setContact] = useState({ name: "", phone: "", relation: "" });
+  const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    // Get user info (from localStorage set at login)
+    const stored = JSON.parse(localStorage.getItem("userData"));
+    if (!stored) return;
+    setUser(stored);
+
+    setContact({
+      name: stored.emergencyContactName || "",
+      phone: stored.emergencyContactPhone || "",
+      relation: stored.emergencyContactRelation || "",
+    });
+  }, []);
+
+  // Update contact info
+  async function handleUpdate() {
+  console.log("user object for update:", user); // Keep for debugging!
+  const userId = user?.patientId; // Use patientId!
+  if (!userId) return alert("No user ID found");
+  try {
+    await api.put(`/SystemUser/update_settings/${userId}`, {
+      EmergencyContactName: contact.name,
+      EmergencyContactPhone: contact.phone,
+      EmergencyContactRelation: contact.relation,
+    });
+    alert("Emergency contact updated!");
+    setEditMode(false);
+
+    // Update user data in localStorage for consistency
+    const updatedUser = { ...user, 
+      emergencyContactName: contact.name, 
+      emergencyContactPhone: contact.phone, 
+      emergencyContactRelation: contact.relation 
+    };
+    setUser(updatedUser);
+    localStorage.setItem("userData", JSON.stringify(updatedUser));
+  } catch (err) {
+    alert("Update failed: " + (err.response?.data?.error || err.message));
+  }
+}
+
+
+  if (!user) return null;
+return (
+  <div className="profile-outer-root">
+    <div className="profile-card">
+      {/* LEFT SIDE */}
+      <div className="profile-card-left">
+        <div className="profile-avatar">
+          <img src={im1} alt="User" />
         </div>
-
-        <div className="profile-content">
-          <div className="profile-pic-section">
-            <img src={im1} alt="User" className="profile-img" />
-          </div>
-
-          {/* Three-column grid for info fields */}
-          <div className="profile-info-grid">
-            <div className="info-box">
+        <div className="profile-fields">
+          <div className="profile-fields-row">
+            <div className="profile-mini-field">
               <label>Age</label>
-              <span className="info-value">49 yrs</span>
+              <span>{user.date ? (new Date().getFullYear() - new Date(user.date).getFullYear()) + " yrs" : "—"}</span>
             </div>
-            <div className="info-box">
+            <div className="profile-mini-field">
               <label>Weight</label>
-              <span className="info-value">70 kgs</span>
+              <span>{user.weight || "—"}</span>
             </div>
-            <div className="info-box">
+            <div className="profile-mini-field">
               <label>Blood Group</label>
-              <span className="info-value">O+</span>
+              <span>{user.bloodGroup || "—"}</span>
             </div>
-            <div className="info-box">
+          </div>
+          <div className="profile-fields-row">
+            <div className="profile-mini-field">
               <label>Sex</label>
-              <span className="info-value">M</span>
+              <span>{user.gender === 1 ? "M" : user.gender === 2 ? "F" : "—"}</span>
             </div>
-            <div className="info-box">
+            <div className="profile-mini-field">
               <label>Height</label>
-              <span className="info-value">5 feet 10 inches</span>
+              <span>{user.height || "—"}</span>
             </div>
-            <div className="info-box">
+            <div className="profile-mini-field">
               <label>Joined on</label>
-              <span className="info-value">10.07.2023</span>
+              <span>{user.date ? new Date(user.date).toLocaleDateString() : "—"}</span>
             </div>
           </div>
-
-          {/* Two-column layout for personal details */}
-          <div className="profile-details-grid">
-            <div className="detail-box">
-              <label>First Name</label>
-              <span className="detail-value">Wade</span>
+          <div className="profile-fields-row">
+            <div className="profile-wide-field">
+              <label>Full Name</label>
+              <span>{user.fullName || "—"}</span>
             </div>
-            <div className="detail-box">
-              <label>Last Name</label>
-              <span className="detail-value">Warren</span>
+            <div className="profile-wide-field">
+              <label>National ID</label>
+              <span>{user.nationalID || "—"}</span>
             </div>
-            <div className="detail-box">
+          </div>
+          <div className="profile-fields-row">
+            <div className="profile-wide-field">
               <label>Mobile Number</label>
-              <span className="detail-value">+91-9054XXXXXX</span>
-            </div>
-            <div className="detail-box">
-              <label>Alternate Mobile Number</label>
-              <span className="detail-value">+91-8024XXXXXX</span>
+              <span>{user.phone || "—"}</span>
             </div>
           </div>
-
-          <div className="info-box address-box">
+          <div className="profile-address-field">
             <label>Address</label>
-            <textarea readOnly className="address-text">
-              123, Park Avenue, Lorran Street, New York, dsfihgiudfshguidfhguidfhdhdfh dhdfidhgfhdghi
-            </textarea>
+            <textarea
+              readOnly
+              value={
+                user.address
+                  ? [
+                      user.address.government,
+                      user.address.city,
+                      user.address.street,
+                      user.address.buildingNumber ? `Bldg: ${user.address.buildingNumber}` : "",
+                      user.address.floor ? `Floor: ${user.address.floor}` : "",
+                      user.address.apartmentNumber ? `Apt: ${user.address.apartmentNumber}` : "",
+                    ]
+                      .filter(Boolean)
+                      .join(", ")
+                  : "—"
+              }
+            />
           </div>
         </div>
       </div>
 
-      {/* Right Section (Emergency Contacts) */}
-      <div className="emergency-contacts">
-        <div className="contacts-header">
-          <h2>Emergency Contacts</h2>
-          <FaPen className="edit-icon" />
+      {/* RIGHT SIDE: EMERGENCY CONTACT */}
+      <div className="profile-card-right">
+        <div className="profile-ec-header">
+          Emergency Contact{" "}
+          {!editMode && (
+            <button className="ec-pen" onClick={() => setEditMode(true)}>
+              <FaPen />
+            </button>
+          )}
         </div>
-        <div className="contacts-container">
-          {[1, 2, 3].map((contact) => (
-            <div key={contact} className="contact-box">
-              <label>Contact {contact} Full Name</label>
-              <input type="text" value="Wade Warren" readOnly className="contact-input" />
-              <label>Contact {contact} Mobile Number</label>
-              <input type="text" value="+91-9054XXXXXX" readOnly className="contact-input" />
-            </div>
-          ))}
+        <div className="profile-ec-list">
+          <div className="profile-ec-box">
+            <label>Full Name</label>
+            <input
+              type="text"
+              value={contact.name}
+              readOnly={!editMode}
+              className="contact-input"
+              onChange={e => setContact({ ...contact, name: e.target.value })}
+            />
+            <label>Mobile Number</label>
+            <input
+              type="text"
+              value={contact.phone}
+              readOnly={!editMode}
+              className="contact-input"
+              onChange={e => setContact({ ...contact, phone: e.target.value })}
+            />
+            <label>Relation</label>
+            <input
+              type="text"
+              value={contact.relation}
+              readOnly={!editMode}
+              className="contact-input"
+              onChange={e => setContact({ ...contact, relation: e.target.value })}
+            />
+            {editMode && (
+              <>
+                <button className="save-btn" onClick={handleUpdate}>
+                  Save
+                </button>
+                <button className="cancel-btn" onClick={() => setEditMode(false)}>
+                  Cancel
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
-export default PatientProfile;
+export default Profile;

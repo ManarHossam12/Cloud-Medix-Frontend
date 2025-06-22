@@ -1,97 +1,141 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { FaBell, FaSignOutAlt } from "react-icons/fa";
+import defaultProfileImg from "../assets/im1.png";
+import docCard from "../assets/im.png";
+import Sidebar from "../components/Sidebar"; // Import Sidebar
 import "../PatientHome.css";
-import { FaClipboardList, FaCalendarCheck, FaUserMd, FaNotesMedical, FaCog, FaUser, FaBars, FaPlus } from "react-icons/fa";
-import MedicalIcon from "../assets/im.png";
+
+const mainActions = [
+  {
+    label: "View Medical Record",
+    path: "/medical-record",
+    img: docCard,
+  },
+  {
+    label: "Tests/Scans Results",
+    path: "/test-results",
+    img: docCard,
+  },
+  {
+    label: "Make Reservation",
+    path: "/add-reservation",
+    img: docCard,
+  },
+  {
+    label: "My Reservations",
+    path: "/reservations",
+    img: docCard,
+  },
+];
 
 const PatientHome = () => {
-  const [selectedDate, setSelectedDate] = useState(14);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) setUser(JSON.parse(storedUserData));
+    else window.location.href = "/login";
+  }, []);
 
-  const handleButtonClick = (buttonText) => {
-    if (buttonText === "View Medical Record") {
-        window.location.href = "/medical-record";
-    } else if (buttonText === "Make Reservation") {
-        window.location.href = "/reservations";
-    } else {
-        alert(`You clicked: ${buttonText}`);
-    }
+  const [calendarDate, setCalendarDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(new Date().getDate());
+
+  const month = calendarDate.getMonth();
+  const year = calendarDate.getFullYear();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startDay = new Date(year, month, 1).getDay();
+  const weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+  const today = new Date();
+
+  const prevMonth = () => setCalendarDate(new Date(year, month - 1, 1));
+  const nextMonth = () => setCalendarDate(new Date(year, month + 1, 1));
+  const go = (path) => window.location.href = path;
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    window.location.href = "/";
   };
 
-  const handleIconClick = (iconName) => {
-    if (iconName === "Menu") {
-        window.location.href = "/home";
-    } else if (iconName === "Medical Records") {
-        window.location.href = "/medical-record";
-    } else if (iconName === "User Profile") {
-        window.location.href = "/profile";
-    }
-  };
-
-  const handleDateClick = (date) => {
-    setSelectedDate(date);
-  };
+  if (!user) return null;
 
   return (
-    <div className="container">
+    <div className="pdf-home-root">
       {/* Sidebar */}
-      <div className="sidebarr">
-        <FaBars className="sidebar-icon" onClick={() => handleIconClick("Menu")} />
-        <FaClipboardList className="sidebar-icon" onClick={() => handleIconClick("Medical Records")} />
-        <FaCalendarCheck className="sidebar-icon" onClick={() => handleIconClick("Calendar")} />
-        <FaNotesMedical className="sidebar-icon" onClick={() => handleIconClick("Notes")} />
-        <FaUser className="sidebar-icon" onClick={() => handleIconClick("User Profile")} />
-        <FaCog className="sidebar-icon" onClick={() => handleIconClick("Settings")} />
-      </div>
+      <Sidebar />
 
-      {/* Main Content */}
-      <div className="main-container">
-        <h1 className="header">Home</h1>
-        <div className="content-box">
-          {["View Medical Record", "Tests/Scans Results", "Make Reservation", "My Reservations"].map((text, index) => (
-            <button 
-              key={index} 
-              className="button button-styled" 
-              onClick={() => handleButtonClick(text)}
-            >
-              <span className="button-text">{text}</span>
-              <div className="button-icon-container">
-                <img src={MedicalIcon} alt="Medical Icon" className="custom-icon" />
-              </div>
-            </button>
+      <div className="pdf-home-main">
+        {/* Header */}
+        <div className="pdf-header-row">
+          <div className="pdf-home-title">Home</div>
+          <FaBell className="pdf-bell" />
+        </div>
+        {/* Main Actions */}
+        <div className="pdf-cards-list">
+          {mainActions.map((action) => (
+            <div key={action.label} className="pdf-action-card" onClick={() => go(action.path)}>
+              <div className="pdf-card-label">{action.label}</div>
+              <img src={action.img} alt="" className="pdf-card-img" />
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Right Panel */}
-      <div className="right-panel">
-        <div className="profile" onClick={() => handleIconClick("User Profile")} style={{ cursor: "pointer" }}>
-          <img src="profile.png" alt="User" className="profile-img" />
-          <div className="profile-name">Wade Warren</div>
-          <div className="profile-stats">
-            <div className="stat-box">70</div>
-            <div className="stat-box">5'10"</div>
-            <div className="stat-box add-btn"><FaPlus /></div>
+      <div className="pdf-home-right">
+        {/* Profile Card */}
+        <div className="pdf-profile-card">
+          <img src={user.profileImg || defaultProfileImg} alt="Profile" className="pdf-profile-img"/>
+          <div className="pdf-profile-name">{user.fullName}</div>
+          <div className="pdf-profile-stats">
+            <div className="pdf-profile-stat">70</div>
+            <div className="pdf-profile-stat">5'10"</div>
+            <button className="pdf-profile-logout-btn" onClick={handleLogout}>
+              <FaSignOutAlt />
+            </button>
           </div>
         </div>
-        <div className="calendar">
-          <div className="calendar-header">July 2023</div>
-          <div className="calendar-grid">
-            {"Mo Tu We Th Fr Sa Su".split(" ").map((day, index) => (
-              <span key={index} className="calendar-day">{day}</span>
-            ))}
-            {[...Array(31)].map((_, date) => (
-              <span
-                key={date}
-                className={`calendar-date ${date + 1 === selectedDate ? "selected" : ""}`}
-                onClick={() => handleDateClick(date + 1)}
-              >
-                {date + 1}
-              </span>
-            ))}
+        {/* Calendar */}
+        <div className="pdf-calendar-card">
+          <div className="pdf-calendar-header">
+            <span className="pdf-calendar-title">
+              {calendarDate.toLocaleString('default', { month: 'long' })} {year}
+            </span>
+            <span>
+              <button className="pdf-cal-btn" onClick={prevMonth}>&lt;</button>
+              <button className="pdf-cal-btn" onClick={nextMonth}>&gt;</button>
+            </span>
           </div>
+          <div className="pdf-calendar-grid">
+            {weekDays.map((day, idx) => (
+              <span key={idx} className="pdf-calendar-day">{day}</span>
+            ))}
+            {/* Padding days */}
+            {[...Array((startDay + 6) % 7)].map((_, idx) => (
+              <span key={`empty-${idx}`} className="pdf-calendar-date empty"></span>
+            ))}
+            {[...Array(daysInMonth)].map((_, dateIdx) => {
+              const dayNum = dateIdx + 1;
+              const isToday =
+                dayNum === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear();
+              const isSelected = dayNum === selectedDay;
+              return (
+                <span
+                  key={dayNum}
+                  className={
+                    "pdf-calendar-date" +
+                    (isToday ? " today" : "") +
+                    (isSelected ? " selected" : "")
+                  }
+                  onClick={() => setSelectedDay(dayNum)}
+                >
+                  {dayNum}
+                </span>
+              );
+            })}
+          </div>
+          <button className="pdf-calendar-action-btn" onClick={() => go("/add-reservation")}>
+            + Make Reservations
+          </button>
         </div>
-        <button className="reservation-btn" onClick={() => handleButtonClick("Make Reservation")}> 
-          <FaPlus className="button-icon" /> Make Reservations
-        </button>
       </div>
     </div>
   );

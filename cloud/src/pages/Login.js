@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles.css"; // Ensure this is linked correctly
 import Layout from "../components/Layout"; // ✅ Import Layout
+import api from "../axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -15,40 +17,50 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    if (email.trim() === "" || password.trim() === "") {
-      setError("Email and password are required!");
-      return;
+  if (userName.trim() === "" || password.trim() === "") {
+    setError("Username and password are required!");
+    return;
+  }
+
+  try {
+    const response = await api.post("/systemaccount/login-patient", {
+      userName,
+      password,
+    });
+
+     if (response.data.statusCode === 200 && response.data.data.length > 0) {
+  const patientId = response.data.data[0];
+  // Optionally save JWT: const jwtToken = response.data.data[1];
+
+  try {
+    // Fetch profile
+    const profileRes = await api.get(`/SystemUser/patient/${patientId}`);
+    if (profileRes.data.statusCode === 200) {
+      // Store the profile in localStorage for all pages to use
+      localStorage.setItem("userData", JSON.stringify({
+        ...profileRes.data.data,
+        patientId // Attach patientId for API requests
+      }));
+      window.location.href = "/home";
+    } else {
+      alert("Could not fetch profile. Please try again.");
     }
+  } catch (e) {
+    alert("Error fetching patient profile.");
+  }
+}
+  } catch (err) {
+    setError(
+      err.response?.data?.message ||
+      err.response?.data?.error ||
+      "Login failed. Try again."
+    );
+  }
+};
 
-    if (!validateEmail(email)) {
-      setError("Invalid email format!");
-      return;
-    }
-
-    try {
-      // Replace with API authentication logic
-      const response = await fetch("https://your-api.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Invalid credentials");
-      }
-
-      const data = await response.json();
-      localStorage.setItem("user", JSON.stringify({ email: data.email }));
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.message || "Login failed. Try again.");
-    }
-  };
 
   return (
     <div className="background">
@@ -66,16 +78,17 @@ const Login = () => {
 
         <form onSubmit={handleLogin}>
           <div className="input-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="username">Username</label>
             <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="username"
+              placeholder="Enter your username"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
               required
             />
           </div>
+
 
           <div className="input-group">
             <label htmlFor="password">Password</label>

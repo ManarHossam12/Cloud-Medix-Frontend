@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../axios";
 import "../styles.css";
 
 const Address = () => {
   const navigate = useNavigate();
   const [address, setAddress] = useState({
-    government: "",
+    country: "Egypt", // default, change as needed
     city: "",
     street: "",
+    postalCode: "",
+    government: "",
     buildingNumber: "",
-    floor: "",
-    apartmentNumber: "",
   });
+  const [gender, setGender] = useState(""); // Add gender selection
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
     if (!storedUserData) {
-      navigate("/signup"); // Redirect back if no user data found
+      navigate("/signup");
     }
   }, [navigate]);
 
@@ -24,41 +27,58 @@ const Address = () => {
     setAddress({ ...address, [e.target.name]: e.target.value });
   };
 
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
+    setError("");
 
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
 
     if (!storedUserData) {
-      alert("User data is missing. Please restart the signup process.");
+      setError("User data is missing. Please restart the signup process.");
       navigate("/signup");
       return;
     }
 
-    const fullData = { ...storedUserData, address };
+    // Compose the correct payload
+    const fullData = {
+      userName: storedUserData.userName,
+      fullName: storedUserData.fullName,
+      email: storedUserData.email,
+      password: storedUserData.password,
+      nationalID: storedUserData.nationalId, // Might need to update the signup step to match this spelling!
+      date: storedUserData.dateOfBirth,      // Or rename key in signup step to "date"
+      phone: storedUserData.phoneNumber,     // Or rename key in signup step to "phone"
+      gender: parseInt(gender, 10),          // Or however you want to represent it
+      address: {
+        country: address.country,
+        city: address.city,
+        street: address.street,
+        postalCode: address.postalCode,
+        government: address.government,
+        buildingNumber: address.buildingNumber,
+      }
+    };
 
     try {
-      console.log("Sending signup request...");
+      const response = await api.post("/systemaccount/register-patient", fullData);
 
-      const response = await fetch("https://your-api.com/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fullData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Signup failed. Please try again.");
+     // After getting response from /systemaccount/register-patient
+      if (response.status === 200 || response.status === 201) {
+        // Suppose response.data = { patientId, fullName, email, ... }
+        localStorage.setItem("userData", JSON.stringify(response.data));
+        navigate("/home"); // or wherever you want to go next
       }
 
-      console.log("Signup successful!");
-      localStorage.removeItem("userData"); // Clear stored data
-      navigate("/login");
     } catch (err) {
-      console.error("Signup error:", err);
-      alert("Signup failed. Please try again.");
+      setError(
+        err.response?.data?.message ||
+        err.message ||
+        "Signup failed. Please try again."
+      );
     }
   };
 
@@ -72,29 +92,77 @@ const Address = () => {
           Address <span>Details</span>
         </h2>
 
+        {error && <p className="error-message">{error}</p>}
+
         <form onSubmit={handleSignup}>
           <div className="input-group">
-            <input type="text" name="government" placeholder="Government" value={address.government} onChange={handleInputChange} required />
+            <input
+              type="text"
+              name="country"
+              placeholder="Country"
+              value={address.country}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              value={address.city}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="text"
+              name="street"
+              placeholder="Street"
+              value={address.street}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="text"
+              name="postalCode"
+              placeholder="Postal Code"
+              value={address.postalCode}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="text"
+              name="government"
+              placeholder="Government"
+              value={address.government}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="number"
+              name="buildingNumber"
+              placeholder="Building Number"
+              value={address.buildingNumber}
+              onChange={handleInputChange}
+              required
+            />
           </div>
 
+          {/* Gender Selector */}
           <div className="input-group">
-            <input type="text" name="city" placeholder="City" value={address.city} onChange={handleInputChange} required />
-          </div>
-
-          <div className="input-group">
-            <input type="text" name="street" placeholder="Street" value={address.street} onChange={handleInputChange} required />
-          </div>
-
-          <div className="input-group">
-            <input type="number" name="buildingNumber" placeholder="Building Number" value={address.buildingNumber} onChange={handleInputChange} required />
-          </div>
-
-          <div className="input-group">
-            <input type="number" name="floor" placeholder="Floor (Optional)" value={address.floor} onChange={handleInputChange} />
-          </div>
-
-          <div className="input-group">
-            <input type="number" name="apartmentNumber" placeholder="Apartment Number (Optional)" value={address.apartmentNumber} onChange={handleInputChange} />
+            <select value={gender} onChange={handleGenderChange} required>
+              <option value="">Select Gender</option>
+              <option value={1}>Male</option>
+              <option value={2}>Female</option>
+            </select>
           </div>
 
           <button type="submit" className="btn-signin">Sign Up</button>

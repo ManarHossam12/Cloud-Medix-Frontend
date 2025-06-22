@@ -1,117 +1,138 @@
-/* General Page Layout */
-body {
-    background-color: #e8e2f7;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+body, html {
+  background: #ece6fc;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
 }
-
-/* Main Container */
-.medical-container {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
-    height: auto;
-    background: #e6d4ff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    padding: 20px;
+.medix-root {
+  display: flex;
+  min-height: 100vh;
+  margin-left: 70px; /* shift content right by sidebar width */
 }
 
 /* Sidebar */
-.sidebar {
-    width: 80px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    border-right: 2px solid #d1c4e9;
+.medix-sidebar {
+  background: #fff;
+  width: 70px;
+  border-right: 2px solid #ece6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 1px 0 9px #a88bfd15;
+  padding-top: 16px;
+}
+.medix-sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 14px;
+}
+.medix-sidebar-icon {
+  font-size: 2.15em;
+  color: #aaa;
+  width: 52px;
+  height: 52px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+.medix-sidebar-icon.active,
+.medix-sidebar-icon:active,
+.medix-sidebar-icon:hover {
+  color: #8224e3;
+  background: #efe8fc;
 }
 
-.sidebar-icon {
-    font-size: 24px;
-    margin: 20px 0;
-    cursor: pointer;
-    color: gray;
-    transition: color 0.3s;
+/* Main Content Layout */
+.medix-main {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: flex-start;
+  position: relative;
+  padding: 0;
+  min-height: 100vh;
 }
 
-.sidebar-icon:hover {
-    color: #6a1b9a;
+/* Tabbar (Sidebar Buttons) */
+.medix-tabbar {
+  background: #8224e3;
+  border-radius: 0 40px 40px 0;
+  min-width: 330px;
+  padding: 38px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 38px;
+  margin-top: 0;
+  height: 90vh;
+}
+.medix-tab-btn {
+  width: 280px;
+  padding: 24px 0;
+  border-radius: 40px;
+  border: none;
+  font-size: 1.55em;
+  font-weight: bold;
+  background: #fff;
+  color: #363232;
+  margin-bottom: 0;
+  box-shadow: 0 2px 14px #7c39e618;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.medix-tab-btn.active {
+  background: linear-gradient(90deg, #fff 30%, #90f1ff 100%);
+  color: #000;
+  box-shadow: 0 7px 30px #a88bfd25;
 }
 
-.active-icon {
-    color: #6a1b9a;
+/* Info Card */
+.medix-info-card {
+  flex: 1;
+  background: #fff;
+  margin: 38px 0 38px 55px;
+  border-radius: 32px;
+  box-shadow: 0 4px 30px #8224e320;
+  padding: 48px 50px;
+  min-width: 530px;
+  min-height: 510px;
+}
+.medix-info-card h2 {
+  font-size: 2.15em;
+  color: #232029;
+  font-weight: bold;
+  margin-bottom: 22px;
+}
+.medix-info-card ul {
+  font-size: 1.25em;
+  padding-left: 26px;
+}
+.medix-info-card li {
+  margin-bottom: 11px;
 }
 
-/* Sidebar Menu */
-.sidebar-menu {
-    background: #5e17eb;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 250px;
+/* Profile Picture (Top-right floating) */
+.medix-profile-pic-wrap {
+  position: absolute;
+  right: 45px;
+  top: 35px;
+  z-index: 2;
+  background: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 4px 15px #7c39e628;
 }
-
-.menu-button {
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 25px;
-    text-align: center;
-    cursor: pointer;
-    background: white;
-    color: black;
-    transition: all 0.3s ease;
-}
-
-.menu-button.active {
-    background: linear-gradient(90deg, #67dfff, #b6f7ff);
-    color: black;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Content Section */
-.content-section {
-    flex-grow: 1;
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    position: relative;
-    margin-left: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.content-section h2 {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.content-section ul {
-    list-style-type: disc;
-    padding-left: 20px;
-    font-size: 18px;
-}
-
-/* Profile Picture */
-.profile-img {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid white;
+.medix-profile-pic {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2.5px solid #8224e3;
+  object-fit: cover;
+  background: #fff;
 }

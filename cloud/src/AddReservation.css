@@ -1,0 +1,55 @@
+.add-reservation-root {
+  display: flex;
+  margin-left: 90px;
+}
+.add-reservation-content {
+  flex: 1;
+  padding: 30px 50px;
+}
+.add-reservation-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  align-items: center;
+}
+.add-reservation-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.add-reservation-slot {
+  display: flex;
+  align-items: center;
+  background: #d2f4fa;
+  border-radius: 15px;
+  padding: 14px 20px;
+  justify-content: space-between;
+  font-size: 1.16em;
+}
+.add-reservation-slot.reserved {
+  background: #ccc;
+}
+.reserve-btn {
+  background: #00d7fd;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  padding: 8px 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cancel-btn {
+  background: #f94144;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  padding: 8px 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

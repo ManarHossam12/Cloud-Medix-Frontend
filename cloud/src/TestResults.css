@@ -1,0 +1,78 @@
+/* src/pages/TestResults.css */
+
+.test-results-root {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f1ff;
+  margin-left: 70px;
+}
+
+.test-results-main {
+  flex-grow: 1;
+  padding: 20px 40px;
+  overflow-y: auto;
+  background: white;
+  margin: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(130, 36, 227, 0.1);
+}
+
+.test-results-main h1 {
+  color: #5221cc;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: #7a70cf;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.test-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.test-result-card {
+  background: #d9ccff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(130, 36, 227, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.test-result-card h3 {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  color: #3b1a98;
+}
+
+.test-result-card p {
+  margin: 0 0 12px 0;
+  color: #3b1a9877;
+}
+
+.test-result-card button {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: #5221cc;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.test-result-card button:hover {
+  color: #3b1a98;
+}
+
+.loading, .error {
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #8224e3;
+}

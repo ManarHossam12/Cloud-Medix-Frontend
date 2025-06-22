@@ -1,0 +1,137 @@
+body {
+  background: #f3f0ff;
+  font-family: 'Inter', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.profile-root {
+  display: flex;
+  min-height: 100vh;
+  background: #f3f0ff;
+}
+
+.profile-sidebar {
+  background: #fff;
+  width: 70px;
+  min-width: 70px;
+  padding-top: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 2px solid #ece6ff;
+  gap: 22px;
+}
+.sidebar-icon {
+  font-size: 2em;
+  color: #b8b8b8;
+  margin: 20px 0;
+  cursor: pointer;
+  transition: color 0.14s, background 0.13s;
+  border-radius: 50%;
+  padding: 9px;
+}
+.sidebar-icon.active, .sidebar-icon:hover {
+  color: #8224e3;
+  background: #ede1ff;
+}
+
+.profile-main-card {
+  background: #e6deff;
+  border-radius: 30px;
+  margin: 40px auto;
+  display: flex;
+  width: 88vw;
+  max-width: 1100px;
+  box-shadow: 0 6px 36px #9f7be627;
+  padding: 42px 38px 42px 44px;
+  gap: 44px;
+}
+.profile-main-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 230px;
+}
+.profile-avatar-wrap {
+  margin-bottom: 22px;
+}
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #fff;
+  border: 4px solid #fff;
+  box-shadow: 0 1px 7px #8557db36;
+}
+.profile-form {
+  width: 210px;
+}
+.profile-field-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+.profile-field-row label {
+  font-size: 0.98em;
+  color: #733db8;
+  margin-bottom: 4px;
+}
+.profile-field-row input,
+.profile-field-row textarea {
+  border: 2px solid #a389f4;
+  border-radius: 21px;
+  padding: 9px 17px;
+  background: #fff;
+  font-size: 1.04em;
+  font-weight: 700;
+  color: #2d2373;
+  margin-bottom: 0;
+  resize: none;
+}
+.profile-field-row textarea {
+  min-height: 56px;
+  font-family: inherit;
+}
+.profile-main-center {
+  min-width: 250px;
+  max-width: 270px;
+  flex: 1;
+  margin-top: 9px;
+}
+.profile-inline-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 15px;
+}
+.profile-mini-field {
+  flex: 1;
+}
+.profile-mini-field label {
+  font-size: 0.97em;
+  color: #733db8;
+  margin-bottom: 2px;
+  display: block;
+}
+.profile-mini-field input {
+  width: 100%;
+  border: 2px solid #a389f4;
+  border-radius: 21px;
+  padding: 9px 13px;
+  background: #fff;
+  font-size: 1.01em;
+  font-weight: 700;
+  color: #2d2373;
+}
+.profile-main-right {
+  min-width: 295px;
+  max-width: 320px;
+  flex: 1.3;
+  padding-left: 19px;
+}
+.profile-ec-header {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 12px;
+  margin-top: 4px;
+}
