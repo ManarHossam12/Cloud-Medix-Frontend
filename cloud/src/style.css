@@ -78,7 +78,6 @@ body {
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    cursor: pointer;
   }
   
   .card-content {
@@ -114,6 +113,16 @@ body {
   
   .reserve-btn {
     background: #00bfa6;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .cancel-btn {
+    background: red;
     color: white;
     border: none;
     padding: 10px;

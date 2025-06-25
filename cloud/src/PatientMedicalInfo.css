@@ -3,29 +3,33 @@ body {
     background-color: #e8e2f7;
     font-family: Arial, sans-serif;
     margin: 0;
+    /* left: 0px;
+    top: 0px;
+    position: absolute; */
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 /* Main Container */
 .medical-container {
     display: flex;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     max-width: 1200px;
-    height: auto;
+    /* height: auto; */
     background: #e6d4ff;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 /* Sidebar */
-.sidebar {
-    width: 80px;
+.sidebar-medical {
+    width: 8vw;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -59,7 +63,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 250px;
+    width: 15vw;
 }
 
 .menu-button {
@@ -91,6 +95,7 @@ body {
     position: relative;
     margin-left: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .content-section h2 {

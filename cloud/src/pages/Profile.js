@@ -4,6 +4,7 @@ import { FaPen } from "react-icons/fa";
 import im1 from "../assets/im1.png";
 
 const PatientProfile = () => {
+  const user = JSON.parse(localStorage.getItem("user")).user;
   return (
     <div className="profile-container">
       {/* Profile Section */}
@@ -22,27 +23,7 @@ const PatientProfile = () => {
           <div className="profile-info-grid">
             <div className="info-box">
               <label>Age</label>
-              <span className="info-value">49 yrs</span>
-            </div>
-            <div className="info-box">
-              <label>Weight</label>
-              <span className="info-value">70 kgs</span>
-            </div>
-            <div className="info-box">
-              <label>Blood Group</label>
-              <span className="info-value">O+</span>
-            </div>
-            <div className="info-box">
-              <label>Sex</label>
-              <span className="info-value">M</span>
-            </div>
-            <div className="info-box">
-              <label>Height</label>
-              <span className="info-value">5 feet 10 inches</span>
-            </div>
-            <div className="info-box">
-              <label>Joined on</label>
-              <span className="info-value">10.07.2023</span>
+              <span className="info-value">{new Date().getFullYear() - new Date(user.date).getFullYear()}</span>
             </div>
           </div>
 
@@ -50,26 +31,22 @@ const PatientProfile = () => {
           <div className="profile-details-grid">
             <div className="detail-box">
               <label>First Name</label>
-              <span className="detail-value">Wade</span>
+              <span className="detail-value">{user.fullName.split(" ").at(0)}</span>
             </div>
             <div className="detail-box">
               <label>Last Name</label>
-              <span className="detail-value">Warren</span>
+              <span className="detail-value">{user.fullName.split(" ").at(-1)}</span>
             </div>
             <div className="detail-box">
               <label>Mobile Number</label>
-              <span className="detail-value">+91-9054XXXXXX</span>
-            </div>
-            <div className="detail-box">
-              <label>Alternate Mobile Number</label>
-              <span className="detail-value">+91-8024XXXXXX</span>
+              <span className="detail-value">{user.phone}</span>
             </div>
           </div>
 
           <div className="info-box address-box">
             <label>Address</label>
             <textarea readOnly className="address-text">
-              123, Park Avenue, Lorran Street, New York, dsfihgiudfshguidfhguidfhdhdfh dhdfidhgfhdghi
+              {`${user.address.buildingNumber} ${user.address.street}, ${user.address.city}, ${user.address.government}`}
             </textarea>
           </div>
         </div>
@@ -82,14 +59,12 @@ const PatientProfile = () => {
           <FaPen className="edit-icon" />
         </div>
         <div className="contacts-container">
-          {[1, 2, 3].map((contact) => (
-            <div key={contact} className="contact-box">
-              <label>Contact {contact} Full Name</label>
-              <input type="text" value="Wade Warren" readOnly className="contact-input" />
-              <label>Contact {contact} Mobile Number</label>
-              <input type="text" value="+91-9054XXXXXX" readOnly className="contact-input" />
+            <div className="contact-box">
+              <label>Emergency Contact Full Name</label>
+              <input type="text" value={user.emergencyContactName != null ? user.emergencyContactName : "No emergency contact registered"} readOnly className="contact-input" />
+              <label>Emergency Contact Mobile Number</label>
+              <input type="text" value={user.emergencyContactPhone != null ? user.emergencyContactPhone : "No emergency contact registered"} readOnly className="contact-input" />
             </div>
-          ))}
         </div>
       </div>
     </div>

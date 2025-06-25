@@ -1,0 +1,101 @@
+.report-box-lab {
+    background-color: #fff;
+    border: 2px solid #b3e5fc; /* Cyan border */
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 75vh;
+  }
+  
+  .report-box-lab h3 {
+    margin: 0 0 10px;
+    color: #191970; /* Purple heading */
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .report-content-lab p {
+    margin: 5px 0;
+    color: #4a4a4a;
+  }
+  
+  .report-content-lab p strong {
+    color: #191970; /* Purple labels */
+  }
+
+  .results-table-lab {
+    margin-top: 15px;
+  }
+  
+  .results-table-lab h4 {
+    margin: 0 0 10px;
+    color: #191970; /* Purple subheading */
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  .results-table-lab table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+  }
+  
+  .results-table-lab th,
+  .results-table-lab td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #b3e5fc; /* Cyan border for rows */
+  }
+  
+  .results-table-lab th {
+    background-color: #e6f7fa; /* Light cyan background */
+    color: #191970; /* Purple text */
+    font-weight: bold;
+  }
+  
+  .results-table-lab td {
+    color: #4a4a4a;
+  }
+
+  .report-overlay-lab {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  .report-container-lab {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  .close-report-btn-lab {
+    background-color: #191970;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .close-report-btn-lab:hover {
+    background-color: #191970;
+  }

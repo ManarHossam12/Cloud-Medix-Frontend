@@ -3,16 +3,15 @@ import "../PatientMedicalInfo.css"; // Ensure correct path
 import { FaBars, FaUser, FaCog, FaCalendar, FaHome } from "react-icons/fa";
 import profileImg from "../assets/im1.png"; // Ensure image path is correct
 
-const PatientMedicalInfo = () => {
-  const [selectedTab, setSelectedTab] = useState("Allergies");
+const PatientDiagnosesAndTreatments = () => {
+  const [selectedTab, setSelectedTab] = useState("Diagnoses");
   // const allergies = localStorage.getItem("allergies") == null ? null : JSON.parse(localStorage.getItem("allergies"));
   // const chronics = localStorage.getItem("chronics") == null ? null : JSON.parse(localStorage.getItem("chronics"));
   // const medications = localStorage.getItem("medications") == null ? null : JSON.parse(localStorage.getItem("medications"));
 
   const medicalData = {
-    "Allergies": localStorage.getItem("allergies") == null ? null : (JSON.parse(localStorage.getItem("allergies"))).allergies,
-    "Chronic Diseases": localStorage.getItem("chronics") == null ? null : JSON.parse(localStorage.getItem("chronics")).chronics,
-    "Current Medications": localStorage.getItem("medications") == null ? null : JSON.parse(localStorage.getItem("medications")).medications,
+    "Diagnoses": localStorage.getItem("diagnoses") == null ? null : (JSON.parse(localStorage.getItem("diagnoses"))).diagnoses,
+    "Treatments": localStorage.getItem("treatments") == null ? null : JSON.parse(localStorage.getItem("treatments")).treatments,
   };
 
   return (
@@ -42,11 +41,22 @@ const PatientMedicalInfo = () => {
       {/* Content Section */}
       <div className="content-section">
         <h2>{selectedTab}</h2>
-        <ul>
+        <table>
+          <tr>
+            <th>{selectedTab == "Diagnoses" ? "Description" : "Type"}</th>
+            <th>Physician Name</th>
+            <th>Hospital</th>
+            <th>Issue Date</th>
+          </tr>
           {medicalData[selectedTab]?.map((item, index) => (
-            <li key={index}>{selectedTab == "Current Medications" ? `${item.name} | Dose: ${item.dose} | From: ${item.startDate}, To: ${item.endDate}` : `${item.description}`}</li>
+          <tr>
+            <td>{selectedTab == "Diagnoses" ? `${item.description}` : `${item.type}`}</td>
+            <td>Dr. {item.physicianFullname}</td>
+            <td>{item.hospitalName}</td>
+            <td>{item.issuedDate.split("T").at(0)} | {item.issuedDate.split("T").at(-1)}</td>
+          </tr>
           ))}
-        </ul>
+        </table>
 
         {/* Profile Picture on Top Right */}
         <img src={profileImg} alt="Profile" className="profile-img" />
@@ -55,4 +65,4 @@ const PatientMedicalInfo = () => {
   );
 };
 
-export default PatientMedicalInfo;
+export default PatientDiagnosesAndTreatments;

@@ -14,9 +14,9 @@ body {
 /* Main Container */
 .container {
   display: flex;
-  width: 100%;
-  max-width: 1200px;
-  height: 90vh;
+  width: 100vw;
+  /* max-width: 1200px; */
+  height: 100vh;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Increased shadow for a stronger effect */
@@ -190,4 +190,78 @@ body {
 
 .reservation-btn:hover {
   background-color: #1976d2;
+}
+
+/* Style the calendar container */
+.custom-popper .react-datepicker {
+  border: none;
+  border-radius: 15px;
+  background-color: #6a0dad; /* Purple background */
+  color: white;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the header (month and year) */
+.custom-calendar .react-datepicker__header {
+  background-color: #6a0dad; /* Match background */
+  border-bottom: none;
+  border-radius: 15px 15px 0 0;
+  padding: 10px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+/* Style navigation arrows */
+.custom-calendar .react-datepicker__navigation {
+  top: 10px;
+}
+.custom-calendar .react-datepicker__navigation--previous {
+  border-right-color: white;
+}
+.custom-calendar .react-datepicker__navigation--next {
+  border-left-color: white;
+}
+
+/* Style the day names (Mo, Tu, We, etc.) */
+.custom-calendar .react-datepicker__day-name {
+  color: white;
+  font-size: 1rem;
+  width: 40px;
+  line-height: 40px;
+}
+
+/* Style the days */
+.custom-calendar .react-datepicker__day {
+  color: white;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%; /* Circular days */
+  margin: 2px;
+  text-align: center;
+}
+
+/* Style hovered days */
+.custom-calendar .react-datepicker__day:hover {
+  background-color: #8a2be2; /* Lighter purple on hover */
+}
+
+/* Style the selected day */
+.custom-calendar .react-datepicker__day--selected {
+  background-color: white !important;
+  color: #6a0dad !important;
+  border-radius: 50%;
+}
+
+/* Style today (if highlighted) */
+.custom-calendar .react-datepicker__day--today {
+  background-color: #d8bfd8; /* Light purple for today */
+  border-radius: 50%;
+}
+
+/* Remove default borders and adjust layout */
+.custom-calendar .react-datepicker__month-container {
+  border: none;
+  background-color: transparent;
 }
