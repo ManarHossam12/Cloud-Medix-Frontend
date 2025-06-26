@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './ResultCard.css';
 import LabResultReport from "./LabResultReport";
 import RadioResultReport from "./RadioResultReport";
+import { localhost } from "../../config";
 
 const ResultCard = ({ test , type }) => {
   const user = JSON.parse(localStorage.getItem("user")).user;
@@ -11,7 +12,7 @@ const ResultCard = ({ test , type }) => {
     const testStates = ["Requested", "Initiated", "Completed"];
     const [result, setResult] = useState(null);
     const viewReport = async() => {
-      const response = await fetch(`https://localhost:5001/test/viewTestResults/central/${userId}/${test.id}`, {
+      const response = await fetch(`${localhost}/test/viewTestResults/central/${userId}/${test.id}`, {
           method: "GET",
           headers:{
           'Authorization': `Bearer ${userToken}`

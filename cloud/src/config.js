@@ -1,0 +1,1 @@
+export const localhost = 'https://localhost:5001'; // Replace with your backend URL or ngrok URL

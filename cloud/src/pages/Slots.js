@@ -39,7 +39,6 @@ const Slots = () => {
   }
 
   const reserveSlot = async(slot, hospital) => {
-    alert(hospital.routingUrl);
     var body = JSON.stringify({
       "hospitalPatientInternalId": hospital.id,
       "slotId": slot.id,

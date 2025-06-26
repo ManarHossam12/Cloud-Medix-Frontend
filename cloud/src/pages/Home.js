@@ -3,6 +3,7 @@ import "../PatientHome.css";
 import { FaClipboardList, FaCalendarCheck, FaUserMd, FaNotesMedical, FaCog, FaUser, FaBars, FaPlus } from "react-icons/fa";
 import MedicalIcon from "../assets/im.png";
 import Calendar from "../components/Calendar";
+import { localhost } from "../config";
 
 const PatientHome = () => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T").at(0));
@@ -11,7 +12,7 @@ const PatientHome = () => {
   const userToken = JSON.parse(localStorage.getItem("user")).token;
 
   const setMedicalRecord = async() => {
-    const response = await fetch(`https://localhost:5001/medicalRecord/patientId/${userId}`, {
+    const response = await fetch(`${localhost}/medicalRecord/patientId/${userId}`, {
         method: "GET",
         headers:{
         'Authorization': `Bearer ${userToken}`
@@ -34,7 +35,7 @@ const PatientHome = () => {
   }
 
   const setMedicalData = async() => {
-    const responseDiagnoses = await fetch(`https://localhost:5001/diagnosis/${userId}`, {
+    const responseDiagnoses = await fetch(`${localhost}/diagnosis/${userId}`, {
         method: "GET",
         headers:{
         'Authorization': `Bearer ${userToken}`
@@ -50,7 +51,7 @@ const PatientHome = () => {
       {
         alert("Error occured!");
       }
-      const responseTreatments = await fetch(`https://localhost:5001/treatment/${userId}`, {
+      const responseTreatments = await fetch(`${localhost}/treatment/${userId}`, {
         method: "GET",
         headers:{
         'Authorization': `Bearer ${userToken}`
@@ -71,7 +72,7 @@ const PatientHome = () => {
   }
 
   const setTestsData = async() => {
-    const responseLab = await fetch(`https://localhost:5001/test/LABORATORY/patient/viewTestRequests/central/${userId}`, {
+    const responseLab = await fetch(`${localhost}/test/LABORATORY/patient/viewTestRequests/central/${userId}`, {
         method: "GET",
         headers:{
         'Authorization': `Bearer ${userToken}`
@@ -87,7 +88,7 @@ const PatientHome = () => {
       {
         alert("Error occured!");
       }
-      const responseRadio = await fetch(`https://localhost:5001/test/RADIOLOGY/patient/viewTestRequests/central/${userId}`, {
+      const responseRadio = await fetch(`${localhost}/test/RADIOLOGY/patient/viewTestRequests/central/${userId}`, {
         method: "GET",
         headers:{
         'Authorization': `Bearer ${userToken}`
@@ -108,7 +109,7 @@ const PatientHome = () => {
   }
 
   const setHospitals = async() => {
-    const response = await fetch(`https://localhost:5001/hospitalRoutings/allHospitals`, {
+    const response = await fetch(`${localhost}/hospitalRoutings/allHospitals`, {
         method: "GET",
         headers:{
         'Authorization': `Bearer ${userToken}`

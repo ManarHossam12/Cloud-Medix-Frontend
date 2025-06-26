@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles.css"; // Ensure this is linked correctly
 import Layout from "../components/Layout"; // ✅ Import Layout
+import { localhost } from "../config";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -30,7 +31,7 @@ const Login = () => {
 
     try {
       // Replace with API authentication logic
-      const response = await fetch("https://localhost:5001/SystemAccount/login-patient", {
+      const response = await fetch(`${localhost}/SystemAccount/login-patient`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +44,7 @@ const Login = () => {
       {
         throw new Error("Invalid credentials");
       }
-      const detailedResponse = await fetch(`https://localhost:5001/SystemUser/patient/${data.data[0]}`, {
+      const detailedResponse = await fetch(`${localhost}/SystemUser/patient/${data.data[0]}`, {
         method: "GET",
       });
 

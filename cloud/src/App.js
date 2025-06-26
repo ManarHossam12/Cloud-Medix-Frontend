@@ -7,7 +7,6 @@ import PatientMedicalInfo from "./pages/PatientMedicalInfo";
 
 import Layout from "./components/Layout";
 import PatientHome from "./pages/Home";
-import ReceptionistHome from "./pages/ReceptionistHome";
 import Address from "./pages/Address";
 import PatientDiagnosesAndTreatments from "./pages/PatientDiagnosesAndTreatments";
 import TestsAndScans from "./pages/TestsAndScans";
@@ -26,7 +25,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<PatientHome />} />
-        <Route path="/receptionist" element={<ReceptionistHome />} />
         <Route path="/address" element={<Address />} />
 
         <Route path="/signup" element={<Signup />} />

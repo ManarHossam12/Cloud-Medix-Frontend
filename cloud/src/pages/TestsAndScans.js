@@ -13,7 +13,7 @@ const TestsAndScans = () => {
 
   const medicalData = {
     "Lab Tests": localStorage.getItem("lab") == null ? null : (JSON.parse(localStorage.getItem("lab"))).lab,
-    "Scans": localStorage.getItem("radio") == null ? null : JSON.parse(localStorage.getItem("radio")).radio,
+    "Radiology": localStorage.getItem("radio") == null ? null : JSON.parse(localStorage.getItem("radio")).radio,
   };
 
   return (
@@ -44,27 +44,8 @@ const TestsAndScans = () => {
       <div className="content-section">
         <h2>{selectedTab}</h2>
         {medicalData[selectedTab].map((test) => (
-          <ResultCard test={test} type={selectedTab === "Scans" ? 1 : 0}/>
+          <ResultCard test={test} type={selectedTab === "Radiology" ? 1 : 0}/>
         ))}
-        {/* <table>
-          <tr>
-            <th>Tests</th>
-            <th>Physician Name</th>
-            <th>Request Date</th>
-            <th>Status</th>
-          </tr>
-          {medicalData[selectedTab]?.map((item, index) => (
-          <tr>
-            <td>{item.tests}</td>
-            <td>Dr. {item.physicianFullName}</td>
-            <td>{item.dateOfRequest.split("T").at(0)} | {item.dateOfRequest.split("T").at(-1)}</td>
-            <td>{testStates[item.status]}</td>
-            {item.status === 2 && <td><button>View Results</button></td>}
-          </tr>
-          ))}
-        </table> */}
-
-        {/* Profile Picture on Top Right */}
         <img src={profileImg} alt="Profile" className="profile-img" />
       </div>
     </div>

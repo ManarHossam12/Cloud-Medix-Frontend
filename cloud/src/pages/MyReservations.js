@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../PatientMedicalInfo.css"; // Ensure correct path
 import { FaBars, FaUser, FaCog, FaCalendar, FaHome } from "react-icons/fa";
 import profileImg from "../assets/im1.png"; // Ensure image path is correct
+import { localhost } from "../config";
 
 const MyReservations = () => {
   const user = JSON.parse(localStorage.getItem("user")).user;
@@ -12,7 +13,7 @@ const MyReservations = () => {
   const reservationStates = ["Confirmed", "Canceled", "Completed"];
 
   async function fetchData() {
-      const response = await fetch(`https://localhost:5001/reservation/patient/central/${userId}`, {
+      const response = await fetch(`${localhost}/reservation/patient/central/${userId}`, {
         method: "GET",
         headers:{
         'Authorization': `Bearer ${userToken}`
@@ -39,7 +40,7 @@ const MyReservations = () => {
   const cancelReservation = async(reservation, index) => {
     if(window.confirm("Are you sure you want to cancel this reservation?"))
     {
-      const response = await fetch(`https://localhost:5001/hospitalRoutings/${reservation.hospital.id}`, {
+      const response = await fetch(`${localhost}/hospitalRoutings/${reservation.hospital.id}`, {
         method: "GET",
         headers:{
         'Authorization': `Bearer ${userToken}`
@@ -55,7 +56,6 @@ const MyReservations = () => {
       {
         alert("Error occured!");
       }
-      alert(data.data);
       const cancelResponse = await fetch(`${data.data}reservation/${userId}/${reservation.id}`, {
         method: "DELETE",
         headers:{

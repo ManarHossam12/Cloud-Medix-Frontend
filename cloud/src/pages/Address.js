@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
+import { localhost } from "../config";
 
 const Address = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const Address = () => {
     try {
       console.log("Sending signup request...");
 
-      const response = await fetch("https://your-api.com/auth/signup", {
+      const response = await fetch(`${localhost}/systemaccount/register-patient`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
